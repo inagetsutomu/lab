@@ -1,4 +1,23 @@
 from PIL import Image
+import re
+import datetime
+import os
+
+def make_dir(dir=None):
+    if dir == None:
+        folder_name = datetime.datetime.now().strftime("%Y/%m/%d_%H:%M")
+        folder_path = os.path.join(os.getcwd(), folder_name)
+    
+    else:
+        today_str = datetime.datetime.now().strftime("%Y/%m/%d_%H:%M_")
+        folder_name = today_str + dir
+        folder_path = os.path.join(os.getcwd(), folder_name)
+
+    print(folder_name)
+    os.makedirs(folder_path, exist_ok=True)
+    print(f"フォルダを作成しました：{folder_path}")
+    return folder_name
+    
 
 # gif保存
 def save_gif(dir, flame=1000,loop=0):
@@ -26,8 +45,10 @@ def extract_number(filename):
     return int(match.group()) if match else -1
 
 # 2次元配列を画像で保存する関数
-def save_tif(data,title,path):
+def save(data, title):
     data=Image.fromarray(data)
     data.save("./"+ path + "/" + title + ".tif")
 
-#test
+if __name__ == "__main__":
+    folder_name = make_dir("test")
+    print(folder_name)
