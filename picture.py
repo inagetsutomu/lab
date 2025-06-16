@@ -38,16 +38,15 @@ def save_gif(dir, flame=1000,loop=0):
                 loop=loop)
 
 
-
 # 数値をキーにして自然順でソート
 def extract_number(filename):
     match = re.search(r'\d+', filename)
     return int(match.group()) if match else -1
 
 # 2次元配列を画像で保存する関数
-def save(data, title):
+def save(data, path, title):
     data=Image.fromarray(data)
-    data.save("./"+ path + "/" + title + ".tif")
+    data.save("./"+ path + "/" + title)
 
 if __name__ == "__main__":
     folder_name = make_dir("test")
