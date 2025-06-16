@@ -29,3 +29,4 @@ def extract_number(filename):
 def save_tif(data,title,path):
     data=Image.fromarray(data)
     data.save("./"+ path + "/" + title + ".tif")
+#test lab
