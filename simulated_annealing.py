@@ -3,13 +3,15 @@ import numpy as np
 
 class SA(object):
 
-    def __init__(self,T,cool,sigma,target,limit):
+    def __init__(self,T,cool,target,limit, sigma,min_sigma, rate_sigma):
         self.start_T = T
         self.cool = cool
         self.start_target = target
         self.goal = 10
         self.start_sigma = sigma
         self.limit = limit
+        self.min_sigma = min_sigma
+        self.rate_sigma = rate_sigma
 
         self.reset()
         self.target = [round(2*self.limit*random.random() - self.limit , 2) for _ in range(len(self.target))]
@@ -19,14 +21,14 @@ class SA(object):
 
     def action(self, i=1, rand=True):
         if rand:
-          if self.sigma >= 0.5:
+          if self.sigma >= self.min_sigma:
             a = self.sigma
           else:
-            a = 0.5
+            a = self.min_sigma
           rate = round(a,3)
           action = self.find_numbers_with_norm(rate,len(self.target))
           action = [round(a,3) for a in action]
-          self.sigma *= 0.995
+          self.sigma *= self.rate_sigma
         else:
           if i == 0:
               action = [round(1000*random.random() - 500 , 1) for _ in range(len(self.target))]
